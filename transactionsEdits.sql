@@ -1,0 +1,55 @@
+select * from transactions
+
+ALTER TABLE TRANSACTIONS
+ADD COLUMN customer VARCHAR (100);
+
+ALTER TABLE TRANSACTIONS
+ADD COLUMN salesRegion VARCHAR (2);
+
+ALTER TABLE TRANSACTIONS
+ADD COLUMN movie_name VARCHAR (100);
+
+ALTER TABLE TRANSACTIONS
+ADD FOREIGN KEY (customer_id) REFERENCES CUSTOMER(person_id);
+
+UPDATE TRANSACTIONS
+JOIN CUSTOMERS ON customer_id = person_id
+SET TRANSACTIONS.customer = concat(CUSTOMERS.forename, ' ', CUSTOMERS.surname)
+
+-- Can't work out how to join 1 table through another
+ALTER TABLE TRANSACTIONS 
+ADD COLUMN country_name VARCHAR (50);
+
+UPDATE TRANSACTIONS
+JOIN LOCATIONS ON TRANSACTIONS.country_name = LOCATIONS.country_name
+SET TRANSACTIONS.salesRegion = LOCATIONS.salesRegion
+
+ALTER TABLE TRANSACTIONS
+DROP COLUMN country_name
+
+UPDATE TRANSACTIONS
+JOIN MOVIES ON TRANSACTIONs.movie_id = MOVIES.movie_id
+SET TRANSACTIONS.movie_name = MOVIES.movie_name
+
+UPDATE TRANSACTIONS
+JOIN MOVIES ON TRANSACTIONS.movie_id = MOVIES.movie_id
+SET TRANSACTIONS.transaction_cost = round(monthlyRentalCost/4 * weeks_loaned,2)
+
+-- foreign keys
+ALTER TABLE TRANSACTIONS
+ADD FOREIGN KEY (customer_id) REFERENCES CUSTOMERS(person_id)
+
+ALTER TABLE TRANSACTIONS
+ADD FOREIGN KEY (movie_id) REFERENCES MOVIES (movie_id)
+
+ALTER TABLE TRANSACTIONS
+DROP COLUMN movie_id
+
+ALTER TABLE TRANSACTIONS
+ADD COLUMN movie_id INT
+
+UPDATE TRANSACTIONS
+JOIN MOVIES ON TRANSACTIONS.movie_name = MOVIES.movie_name
+SET TRANSACTIONs.movie_id = MOVIES.movie_id
+
+-- nb why can't you add a foreign key when the data is populated
