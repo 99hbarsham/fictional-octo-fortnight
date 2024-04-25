@@ -234,5 +234,16 @@
         
     }
     
-  
+    @media only screen and (max-width: 767px) {
+   .padding-section-top {
+      padding-left: 1.25rem;
+      padding-right: 1.25rem;
+   }}
+
+    @media only screen and (max-width: 767px) {
+   .padding-section-middle {
+      padding-left: 1.25rem;
+      padding-right: 1.25rem;
+   }}
+
 
